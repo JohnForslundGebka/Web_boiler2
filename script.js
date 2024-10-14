@@ -62,7 +62,7 @@ const quizData = [
     },
 ];
 
-
+const quizWindowElement = document.getElementById("quiz-window");
 const questionElement = document.getElementById("question");
 const cluesElement = document.getElementById("clues");
 const optionsElement = document.getElementById("options");
@@ -121,9 +121,9 @@ function showQuestion() {
   }
 
   function showResult() {
-    quiz.innerHTML = `
-      <h1>Quiz Completed!</h1>
-      <p>Your score: ${totScore}/${quizData.length}</p>
+    quizWindowElement.innerHTML = `
+      <h1>Frågesport avklarad!</h1>
+      <p>Din poäng: ${totScore} på ${quizData.length} frågor</p>
     `;
   }
   
