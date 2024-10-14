@@ -1,0 +1,30 @@
+#quiz-window{
+    margin: 0 auto;
+    background-color: burlywood;
+    width: 800px;
+}
+
+h1 {
+    text-align: center;
+}
+
+#question {
+    margin-bottom: 20px;
+}
+
+#options {
+    display: grid;
+    gap: 10px;
+    grid-template-columns: repeat(2, 1fr);
+}
+
+button {
+    display: block;
+    margin: 0 auto;
+    padding: 10px 20px;
+    background-color:rgb(212, 63, 63);
+}
+
+button:hover {
+    background-color: #8f8d8d;
+}
