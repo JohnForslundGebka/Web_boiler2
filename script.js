@@ -62,34 +62,62 @@ const quizData = [
     },
 ];
 
-const quizWindowElement = document.getElementById("quiz-window");
-const questionElement = document.getElementById("question");
-const cluesElement = document.getElementById("clues");
-const optionsElement = document.getElementById("options");
-const totScoreElement = document.getElementById("totScore");
+class Quiz {
+    constructor(quizData){
+        this.quizData = quizData;
+        this.currentQuestion = 0;
+        this.totScore = 0;
+        this.clueNumber = 0;
+        this.scoreForCurrentQuestion = 4;
+    }
 
-let currentQuestion = 0;
-let clueNumber = 0;
-let totScore = 0;
-let scoreForCurrentQuestion = 4;
+    reset(){
+        this.currentQuestion = 0;
+        this.totScore = 0;
+        this.clueNumber = 0;
+        this.scoreForCurrentQuestion = 4;
+    }
 
-function showQuestion() {
-    const question = quizData[currentQuestion];
-    questionElement.innerText = question.question;
+     getCurrentQuestion() {
+        return this.quizData[this.currentQuestion];
+    }
+}
 
+function renderQuestion(quiz){
+
+    htmlTransfer.clearElements();
+
+    const question = quiz.getCurrentQuestion();
+    htmlTransfer.questionElement.innerText = question.question;
+
+     question.options.forEach(option => {
+      const button = document.createElement("button");
+      button.innerText = option;
+      htmlTransfer.optionsElement.appendChild(button);
+      button.addEventListener("click", selectAnswer);
+    });
+    
+    totScoreElement.innerHTML = `<p>Your score: ${quiz.totScore}</p>`;
+} 
+
+class HtmlTransfer {
+    constructor(){
+        const quizWindowElement = document.getElementById("quiz-window");
+        const questionElement = document.getElementById("question");
+        const cluesElement = document.getElementById("clues");
+        const optionsElement = document.getElementById("options");
+        const totScoreElement = document.getElementById("totScore");
+    }
+
+    clearElements(){
     optionsElement.innerHTML = "";
     cluesElement.innerHTML = "";
     totScoreElement.innerHTML = "";
+    }
+}
 
-    totScoreElement.innerHTML = `<p>Your score: ${totScore}</p>`;
 
-    question.options.forEach(option => {
-      const button = document.createElement("button");
-      button.innerText = option;
-      optionsElement.appendChild(button);
-      button.addEventListener("click", selectAnswer);
-    });
-
+function showQuestion() {
     if (clueNumber > 0){
         for (let i = 0; i < clueNumber; i++){
             let clueDiv = document.createElement("div");
@@ -127,5 +155,5 @@ function showQuestion() {
     `;
   }
   
-  showQuestion();
-
+const quiz = new Quiz(quizData);
+const htmlTransfer = new HtmlTransfer;
