@@ -177,6 +177,7 @@ class HtmlTransfer {
     this.optionsElement.innerHTML = "";
     this.cluesElement.innerHTML = "";
     this.totScoreElement.innerHTML = "";
+    this.countdownElement.innerHTML = "";
   }
 }
 
@@ -227,20 +228,24 @@ function selectAnswer(e) {
 }
 
 function showResult() {
+  clearInterval(countdownInterval);
+  htmlTransfer.countdownElement.style.borderColor = "transparent";
   htmlTransfer.clearElements();
   htmlTransfer.quizWindowElement.innerHTML = `
       <h1>Frågesport avklarad!</h1>
       <p>Din poäng: ${quiz.totScore} </p>
-    `;
+    `; 
 }
 
 
 function countDown(){
   quiz.timeLeft--;
-  htmlTransfer.countdownElement.innerHTML = `
-      <p>${quiz.timeLeft}</p>
-       `;
-    
+  htmlTransfer.countdownElement.textContent = quiz.timeLeft;
+
+       if(quiz.timeLeft == 10){
+        changeColorOfElement(htmlTransfer.countdownElement, "red");
+       }
+
        if(quiz.timeLeft == 0){
           quiz.scoreForCurrentQuestion = -4;
           quiz.totScore += quiz.scoreForCurrentQuestion;
@@ -250,11 +255,17 @@ function countDown(){
        }
 }
 
+function changeColorOfElement(element, color){
+    // Set the text color to red
+    element.style.color = color;
+    // Set the border color to red
+    element.style.borderColor = color;
+}
 
 const quiz = new Quiz(quizData);
 const htmlTransfer = new HtmlTransfer();
 renderQuestion(quiz);
 
-setInterval(countDown,1000);
+let countdownInterval = setInterval(countDown,1000);
 
 
