@@ -115,7 +115,6 @@ const quizData = [
     answer: "Portugisiska",
   },
 ];
-
 class Quiz {
   constructor(quizData) {
     this.quizData = quizData;
@@ -197,17 +196,17 @@ function selectAnswer(e) {
     quiz.totScore += quiz.scoreForCurrentQuestion;
     quiz.nextQuestion();
 
-      // Check if the quiz is finished
-      if (quiz.isDone()) {
-        showResult(); // Show result if quiz is done
-      } else {
-        renderQuestion(quiz); // Render the next question if quiz is not done
-      }
+    // Check if the quiz is finished
+    if (quiz.isDone()) {
+      showResult(); // Show result if quiz is done
+    } else {
+      renderQuestion(quiz); // Render the next question if quiz is not done
+    }
   } else {
     quiz.clueNumber++;
     renderClues(quiz);
     quiz.scoreForCurrentQuestion--;
-    if(quiz.scoreForCurrentQuestion == 0) quiz.scoreForCurrentQuestion = -2;
+    if (quiz.scoreForCurrentQuestion == 0) quiz.scoreForCurrentQuestion = -2;
   }
 }
 
