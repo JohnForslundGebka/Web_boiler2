@@ -193,6 +193,13 @@ function renderQuestion(quiz) {
     button.addEventListener("click", selectAnswer);
   });
 
+  // Set the color of the total, green for positive, red for negative
+  if (quiz.totScore < 0) {
+    htmlTransfer.totScoreElement.style.color = "red";
+  } else {
+    htmlTransfer.totScoreElement.style.color = "green";
+  }
+
   htmlTransfer.totScoreElement.innerHTML = `<p>Din poäng: ${quiz.totScore}</p>`;
 }
 
@@ -231,10 +238,14 @@ function showResult() {
   clearInterval(countdownInterval);
   htmlTransfer.countdownElement.style.borderColor = "transparent";
   htmlTransfer.clearElements();
+
+  // Set the color of the total score based on its value
+  let scoreColor = quiz.totScore < 0 ? "red" : "green";
+
   htmlTransfer.quizWindowElement.innerHTML = `
-      <h1>Frågesport avklarad!</h1>
-      <p>Din poäng: ${quiz.totScore} </p>
-    `; 
+    <h1>Frågesport avklarad!</h1>
+    <p style="color: ${scoreColor};">Din poäng: ${quiz.totScore}</p>
+  `;
 }
 
 
