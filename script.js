@@ -158,7 +158,7 @@ class HtmlTransfer {
     this.cluesElement = document.getElementById("clues");
     this.optionsElement = document.getElementById("options");
     this.totScoreElement = document.getElementById("totScore");
-    this.countdownElement.document.getElementsByClassName("countdown");
+    this.countdownElement = document.querySelector(".countdown");
   }
 
   clearElements() {
@@ -222,11 +222,18 @@ function showResult() {
     `;
 }
 
+
 function countDown(){
   quiz.timeLeft--;
+  htmlTransfer.countdownElement.innerHTML = `
+      <p>${quiz.timeLeft}</p>
+       `;
 
 }
+
 
 const quiz = new Quiz(quizData);
 const htmlTransfer = new HtmlTransfer();
 renderQuestion(quiz);
+
+setInterval(countDown,1000);
