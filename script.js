@@ -115,6 +115,7 @@ const quizData = [
     answer: "Portugisiska",
   },
 ];
+
 class Quiz {
   constructor(quizData) {
     this.quizData = quizData;
@@ -122,6 +123,7 @@ class Quiz {
     this.totScore = 0;
     this.clueNumber = 0;
     this.scoreForCurrentQuestion = 4;
+    this.timeLeft = 30;
   }
 
   resetAllData() {
@@ -141,6 +143,7 @@ class Quiz {
     if (!this.isDone()) {
       this.scoreForCurrentQuestion = 4;
       this.clueNumber = 0;
+      this.timeLeft = 30;
     }
   }
 
@@ -155,6 +158,7 @@ class HtmlTransfer {
     this.cluesElement = document.getElementById("clues");
     this.optionsElement = document.getElementById("options");
     this.totScoreElement = document.getElementById("totScore");
+    this.countdownElement.document.getElementsByClassName("countdown");
   }
 
   clearElements() {
@@ -216,6 +220,11 @@ function showResult() {
       <h1>Frågesport avklarad!</h1>
       <p>Din poäng: ${quiz.totScore} </p>
     `;
+}
+
+function countDown(){
+  quiz.timeLeft--;
+
 }
 
 const quiz = new Quiz(quizData);
