@@ -147,6 +147,18 @@ class Quiz {
     }
   }
 
+  calulateScore(){
+    if(this.timeLeft > 22){
+      this.totScore += this.scoreForCurrentQuestion + 5; 
+    } else if(this.timeLeft > 15) {
+      this.totScore += this.scoreForCurrentQuestion + 3;
+    } else if(this.timeLeft > 8) {
+      this.totScore += this.scoreForCurrentQuestion + 2;
+    } else if(this.timeLeft > 0) {
+      this.totScore += this.scoreForCurrentQuestion + 0;
+    }
+  }
+
   isDone() {
     return this.currentQuestion >= this.quizData.length;
   }
@@ -197,15 +209,15 @@ function selectAnswer(e) {
 
   // Check if the selected answer is correct or the user reached max clues
   if (selectedButton.innerText === answer || quiz.clueNumber === 4) {
-    quiz.totScore += quiz.scoreForCurrentQuestion;
+    quiz.calulateScore();
     quiz.nextQuestion();
 
-    // Check if the quiz is finished
-    if (quiz.isDone()) {
-      showResult(); // Show result if quiz is done
-    } else {
-      renderQuestion(quiz); // Render the next question if quiz is not done
-    }
+      // Check if the quiz is finished
+      if (quiz.isDone()) {
+        showResult(); // Show result if quiz is done
+      } else {
+        renderQuestion(quiz); // Render the next question if quiz is not done
+      }
   } else {
     quiz.clueNumber++;
     renderClues(quiz);
@@ -228,7 +240,14 @@ function countDown(){
   htmlTransfer.countdownElement.innerHTML = `
       <p>${quiz.timeLeft}</p>
        `;
+    
+       if(quiz.timeLeft == 0){
+          quiz.scoreForCurrentQuestion = -4;
+          quiz.totScore += quiz.scoreForCurrentQuestion;
 
+          quiz.nextQuestion();
+          renderQuestion(quiz);
+       }
 }
 
 
@@ -237,3 +256,5 @@ const htmlTransfer = new HtmlTransfer();
 renderQuestion(quiz);
 
 setInterval(countDown,1000);
+
+
