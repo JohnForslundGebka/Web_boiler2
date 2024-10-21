@@ -1,3 +1,11 @@
+main {
+    display: flex;
+    flex-direction: column;
+    margin: 0 auto;
+    align-items: center;
+
+}
+
 #quiz-window{
     margin: 0 auto;
     background-color: burlywood;
@@ -31,4 +39,14 @@ button {
 
 button:hover {
     background-color: #8f8d8d;
+}
+
+.countdown{
+    border: 1px solid black;
+        padding: 10px;
+        font-size: 20px;
+        text-align: center;
+        width: 100px;
+        margin-top: 20px;
+
 }
