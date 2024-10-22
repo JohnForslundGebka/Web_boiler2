@@ -139,7 +139,7 @@ class Quiz {
 
   nextQuestion() {
     this.currentQuestion++;
-
+    changeColorOfElement(htmlTransfer.countdownElement, "black");
     if (!this.isDone()) {
       this.scoreForCurrentQuestion = 4;
       this.clueNumber = 0;
